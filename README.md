@@ -1,35 +1,154 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Project File Structure
 
-# Getting Started
+> **Overview**
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+``` text
+.
+├── android
+├── git
+│   └── assets
+├── ios
+├── node_modules
+├── src
+│   ├── assets
+│   │   ├── icons
+│   │   ├── images
+│   │   └── fonts
+│   ├── components
+│   │   ├── atoms
+│   │   ├── molecules
+│   │   ├── organisms
+│   │   ├── pages
+│   │   └── templates
+│   ├── hooks
+│   ├── navigation
+│   ├── services
+│   ├── store
+│   ├── types
+│   ├── utils
+│   └── App.tsx
+├── __tests__
+├── app.json
+├── babel.config.js
+├── Gemfile
+├── index.js
+├── jest.config.js
+├── metro.config.js
+├── package.json
+├── package-lock.json
+├── README.md
+└── tsconfig.json
+```
 
-## Step 1: Start Metro
+> **Breakdown**
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- **android**, **ios**: Platform-specific code (native modules or customizable platform-specific settings).
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **git**: GitRepo stuff.
+  - **assets**
+
+- **node_modules**: Packages installed for the project (*trough npm/yarn*).
+
+- **src**: Core app code.
+  - **assets**: Static assets
+    - **icons**
+    - **images**
+    - **fonts**
+  
+  - **componets**: Reusable UI components. Refer to [atomic design](#atomic-design) section.
+    - **atoms**
+    - **molecules**
+    - **organisms**
+    - **pages**
+    - **templates**
+  
+  - **hooks**: Custom hooks.
+  
+  - **navigation**: Application navigation logic (navigators, routes, and navigation options).
+  
+  - **services**
+  
+  - **store**: Contains the code for managing app state, often using Redux, Zustand, or another state management library. This directory typically includes subfolders for actions, reducers, types, and middleware.
+  
+  - **types**: A central location for defining global TypeScript types and interfaces that are used throughout the app. This promotes code reusability and type safety.
+  
+  - **utils**: Stores utility functions, helper methods, and other reusable code that doesn't belong in a specific component or module. This might include date formatting functions, validation logic, or string manipulation utilities.
+  
+  - **App.tsx**: Main file.
+
+- **app.json**: Contains configuration metadata about React Native app (*name, display name, bundle identifier (iOS), package name (Android), version number, and icon*) that is consumed by React Native's build process.
+
+- **babel.config.js**: Configures Babel, a JavaScript compiler that transforms your modern JavaScript (including JSX, ES6+, and potentially TypeScript) into code that can be understood by older JavaScript environments (like older Android or iOS versions).
+
+- **Gemfile**: Specifies the Ruby gem dependencies for your project. It's primarily used for managing native dependencies in iOS projects (using CocoaPods).
+
+- **index.js**: The entry point of React Native app, first JavaScript file that React Native loads when your app starts. Registers your main app component using AppRegistry.registerComponent. This tells React Native which component to render as the root of your app.
+
+- **jest.config.js**: Configures Jest, a popular JavaScript testing framework. This file tells Jest how to run your tests, where to find them, what reporters to use, and other settings.
+
+- **metro.config.js**: Configures the Metro bundler, which is the JavaScript bundler used by React Native. It takes all of your JavaScript code, dependencies, assets and bundles them into one or more files that can be loaded by your app.
+
+- **package.json**: The heart of your Node.js/npm project (and React Native is built on Node.js). It contains metadata about your project, including its name, version, dependencies, scripts, and more.
+
+- **package-lock.json**: Ensures that everyone working on the project uses the exact same versions of all dependencies.  This prevents unexpected issues caused by different versions of packages. When you install dependencies using **npm install** (*or yarn install*), npm (*or yarn*) creates/updates package-lock.json (*or yarn.lock*). This file records the precise version of every package that was installed, including transitive dependencies (the dependencies of your dependencies). You should always commit this file to your version control system (e.g., Git).
+
+- **README.md**: This file.
+
+- **tsconfig.json**: Configures the TypeScript compiler. If you're using TypeScript in your React Native project, this file tells the TypeScript compiler how to compile your **.ts** and **.tsx** files into JavaScript.
+
+
+# Atomic Design
+
+<a name="atomic-design"></a>
+
+> **Overview**
+
+![alt text](./git/assets/atomic.png)
+
+- **Atoms**: The fundamental building blocks of your UI. These are the smallest indivisible components like buttons, labels, input fields, icons, and typography styles. They cannot be broken down further without losing their function.
+
+- **Molecules**: Simple groups of UI elements functioning together as a single unit. Examples include a search bar (input + button), a form label with its input, or a navigation item (icon + text).
+
+- **Organisms**: Relatively complex UI sections composed of groups of molecules and/or atoms and even other organisms. They form distinct sections of an interface like a header, a product list, a sidebar, or a comment section.
+
+- **Templates**: Page-level objects that place components in a layout and articulate the design’s underlying structure. Templates define the structure of the page but don't contain actual content. They are wireframes showing where components will be placed.
+
+- **Pages**: Specific instances of templates, populated with real representative content. Pages are what users ultimately see and interact with. They're the fully rendered pages of your app.
+
+# Naming conventions
+
+> Consider sticking to consistent naming conventions.
+
+For this project I suggest:
+
+- **PascalCase** for naming *components* (e.g., MyComponent)
+
+- **camelCase** for naming *variables and functions* (e.g., myVariable, myFunction)
+
+- **kebab-case** for naming *files and directories* (e.g., my-component.tsx)
+
+# Running the app
+
+> Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+
+## 1. Start Metro (dev server)
+
+Run the following command from the **root** of your React Native project:
 
 ```sh
 # Using npm
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
+## 2. Run the app
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+With Metro running, open a new terminal window from the **root** of your React Native project, and use one of the following commands to build and run your Android or iOS app:
 
 ### Android
 
 ```sh
 # Using npm
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
 ### iOS
@@ -53,45 +172,31 @@ For more information, please visit [CocoaPods Getting Started guide](https://gui
 ```sh
 # Using npm
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
 If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
 
 This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+## 3. Modify the app
 
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Open `./src/App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
 
 When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
 
 - **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
 - **iOS**: Press <kbd>R</kbd> in iOS Simulator.
 
-## Congratulations! :tada:
+# Docs
 
-You've successfully run and modified your React Native App. :partying_face:
+- [React Native: Environment setup](https://reactnative.dev/docs/environment-setup)
 
-### Now what?
+- [React Native: Getting started](https://reactnative.dev/docs/getting-started)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+- [React Native: Troubleshooting](https://reactnative.dev/docs/troubleshooting)
 
-# Troubleshooting
+- [React Native: Website](https://reactnative.dev)
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- [React Native: Dev blog](https://reactnative.dev/blog)
 
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- [React Native: GitHub repository](https://github.com/facebook/react-native)
