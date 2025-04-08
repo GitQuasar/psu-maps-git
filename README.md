@@ -1,3 +1,7 @@
+# Important Notes:
+1. Java 17 is being used by the project
+
+
 # Project File Structure
 
 > **Overview**
@@ -114,6 +118,22 @@
 - **Templates**: Page-level objects that place components in a layout and articulate the design’s underlying structure. Templates define the structure of the page but don't contain actual content. They are wireframes showing where components will be placed.
 
 - **Pages**: Specific instances of templates, populated with real representative content. Pages are what users ultimately see and interact with. They're the fully rendered pages of your app.
+
+# Instructions for cloning from GitHub
+
+I suggest these steps for successful cloning from our remote repository:
+
+1. Firstly, navigate to the folder where you will be cloning the remote repository
+2. Open your shell in this directory and run the following:
+   ```
+   git clone https://github.com/GitQuasar/psu-maps-git
+   ```
+3. After successful cloning, navigate to the created `psu-maps-git` directory
+4. Run the following to install all essential packages with specific versions listed in `package-lock.json`:
+   ```
+   npm ci
+   ```
+   after that, make shure that node_modules folder has appeared in the root of the project
 
 # Naming conventions
 
