@@ -1,53 +1,21 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
 
-import Button from './components/atoms/buttons/button';
+import NavigationBar from './components/organisms/navigationBar';
 
-import { createStaticNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-function HomeScreen() {
-  return (
-    <ScrollView>
-      <Button title="Button!" />
-    </ScrollView>
-  );
-}
-
-function DetailsScreen() {
-  return (
-    <ScrollView>
-      <Button title="Button!" />
-      <Button title="Button!" />
-      <Button title="Button!" />
-      <Button title="Button!" />
-    </ScrollView>
-  );
-}
-
-const RootStack = createNativeStackNavigator({
-  initialRouteName: 'Home',
-  screenOptions: {
-    headerStyle: { backgroundColor: '#007AFF' },
-  },
-  screens: {
-    Home: {
-      screen: HomeScreen,
-      options: {
-        title: 'Overview',
-      },
-    },
-    Details: {
-      screen: DetailsScreen,
-      options: {
-        title: 'Details',
-      },
-    },
-  },
-});
-
-const Navigation = createStaticNavigation(RootStack);
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
-  return <Navigation />;
+  return (
+    <SafeAreaView style={styles.mainContainer}>
+      <NavigationBar />
+    </SafeAreaView>
+  );
 }
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#E6E8E5',
+    justifyContent: 'flex-end',
+  },
+});
