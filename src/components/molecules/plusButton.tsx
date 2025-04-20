@@ -1,0 +1,14 @@
+import React from 'react';
+
+import BaseButton from '../atoms/baseButton';
+
+const PlusButton = () => {
+    return (
+        <BaseButton
+            iconSrc={require('../images/plus_icon.png')}
+            style={{ backgroundColor: '#6C0503' }}
+        />
+    );
+};
+
+export default PlusButton;
