@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// import CloseButton from '../molecules/closeButton';
-import SettingsButton from '../molecules/settingsButton';
+import { globalStyles } from '../atoms/globalStyle';
+import CloseButton from '../molecules/closeButton';
 
 const SettingsScreen = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -14,15 +14,15 @@ const SettingsScreen = () => {
 
     return (
         <SafeAreaView style={styles.safeAreaView}>
+            <View style={styles.closeButton}>
+                <CloseButton />
+            </View>
             <View style={styles.container}>
-                <View style={styles.settingsButton}>
-                    <SettingsButton />
-                </View>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Настройки</Text>
+                    <Text style={[styles.headerTitle, globalStyles.text]}>Настройки</Text>
                 </View>
                 <View style={styles.themeSection}>
-                    <Text style={styles.sectionTitle}>Сменить тему</Text>
+                    <Text style={[styles.sectionTitle, globalStyles.text]}>Сменить тему</Text>
                     <Switch
                         trackColor={{ false: '#564C55', true: '#000000' }}
                         thumbColor={isDarkMode ? '#f5dd4b' : '#f5dd4b'}
@@ -31,9 +31,15 @@ const SettingsScreen = () => {
                     />
                 </View>
                 <View style={styles.infoSection}>
-                    <Text style={styles.sectionTitle}>Информация о приложении</Text>
-                    <Text style={styles.infoText}>Версия приложения: v1.0</Text>
-                    <Text style={styles.infoText}>Команда разработки: Yo-project</Text>
+                    <Text style={[styles.sectionTitle, globalStyles.text]}>
+                        Информация о приложении
+                    </Text>
+                    <Text style={[styles.infoText, globalStyles.text]}>
+                        Версия приложения: v1.0
+                    </Text>
+                    <Text style={[styles.infoText, globalStyles.text]}>
+                        Команда разработки: Yo-project
+                    </Text>
                 </View>
             </View>
         </SafeAreaView>
@@ -41,27 +47,29 @@ const SettingsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    safeAreaView: {
-        flex: 1,
+    closeButton: {
+        position: 'absolute',
+        top: 20,
+        right: 20,
     },
-    container: {
+    safeAreaView: {
         flex: 1,
         backgroundColor: '#932D30',
         padding: 20,
-        position: 'relative',
-    },
-    settingsButton: {
-        position: 'absolute',
-        top: 15,
-        left: 15,
     },
     header: {
         alignItems: 'center',
         marginBottom: 30,
+        height: 50,
+        justifyContent: 'center',
     },
     headerTitle: {
         fontSize: 20,
         color: '#ffffff',
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'flex-start',
     },
     themeSection: {
         flexDirection: 'row',
@@ -71,6 +79,7 @@ const styles = StyleSheet.create({
         padding: 8,
         backgroundColor: '#D9D9D9',
         borderRadius: 18,
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     },
     infoSection: {
         flexDirection: 'column',
@@ -79,6 +88,7 @@ const styles = StyleSheet.create({
         padding: 8,
         backgroundColor: '#D9D9D9',
         borderRadius: 18,
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     },
     sectionTitle: {
         fontSize: 16,

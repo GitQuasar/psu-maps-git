@@ -6,76 +6,94 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import SwitchEndpointsButton from '../molecules/switchEndpointsButton';
 import CloseButton from '../molecules/closeButton';
 
-const RouteBar = () => {
+import { globalStyles } from '../atoms/globalStyle';
+
+interface RouteBarProps {
+    departurePoint: string;
+    destinationPoint: string;
+}
+
+const RouteBar = (props: RouteBarProps) => {
     return (
-        <SafeAreaView style={styles.navigationBar}>
-            <View style={styles.routeContainer}>
-                <Text style={styles.routeText}>Маршрут</Text>
-            </View>
-            <View style={styles.buttonRow}>
-                <TouchableOpacity style={styles.inputComponent}>
-                    <Text>Откуда</Text>
-                </TouchableOpacity>
-                <CloseButton />
-            </View>
-            <SwitchEndpointsButton />
-            <View style={styles.buttonRow}>
-                <TouchableOpacity style={styles.inputComponent}>
-                    <Text>Куда</Text>
-                </TouchableOpacity>
-                <CloseButton />
-            </View>
-            <View style={styles.buttonRow}>
-                <TouchableOpacity style={styles.buildRouteButton}>
-                    <Text>Построить маршрут</Text>
-                </TouchableOpacity>
+        <SafeAreaView style={styles.bar}>
+            <Text style={[styles.barTitle, globalStyles.text]}>Маршрут</Text>
+            <View style={styles.barRows}>
+                <View style={styles.row}>
+                    <TouchableOpacity style={styles.touchable}>
+                        <Text style={[globalStyles.text, styles.touchableText]}>
+                            {props.departurePoint}
+                        </Text>
+                    </TouchableOpacity>
+                    <CloseButton />
+                </View>
+                <View style={styles.row}>
+                    <SwitchEndpointsButton />
+                </View>
+                <View style={styles.row}>
+                    <TouchableOpacity style={styles.touchable}>
+                        <Text style={[globalStyles.text, styles.touchableText]}>
+                            {props.destinationPoint}
+                        </Text>
+                    </TouchableOpacity>
+                    <CloseButton />
+                </View>
+                <View style={styles.row}>
+                    <TouchableOpacity style={styles.touchable}>
+                        <Text style={[globalStyles.text, styles.touchableText]}>
+                            Построить маршрут
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
-    navigationBar: {
+    bar: {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#932D30',
         height: '33%',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
+        minHeight: 300,
+        borderTopLeftRadius: '10%',
+        borderTopRightRadius: '10%',
         boxShadow: '0px -4px 4px rgba(0, 0, 0, 0.25)',
     },
-    routeContainer: {
-        alignItems: 'center',
-        marginBottom: 10,
-        paddingVertical: 5,
-    },
-    routeText: {
+    barTitle: {
         color: 'white',
         fontSize: 18,
+        fontWeight: 'bold',
+        marginVertical: '2.5%',
     },
-    buttonRow: {
+    barRows: {
         flex: 1,
-        flexDirection: 'row',
-        alignItems: 'stretch',
+        flexDirection: 'column',
         width: '50%',
-        marginVertical: 8,
+        alignItems: 'stretch',
+        justifyContent: 'flex-start',
+        marginVertical: '2%',
     },
-    inputComponent: {
-        flex: 2,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 20,
-        paddingHorizontal: 15,
-        backgroundColor: '#E0E0E0',
-    },
-    buildRouteButton: {
+    row: {
         flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#E0E0E0',
-        borderRadius: 20,
-        paddingVertical: 15,
+        flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-evenly',
+        marginVertical: '2%',
+    },
+    touchable: {
+        height: 50,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+        backgroundColor: '#E0E0E0',
+        marginRight: '2.5%',
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    },
+    touchableText: {
+        color: 'black',
+        fontSize: 17,
     },
 });
 

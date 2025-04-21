@@ -11,18 +11,20 @@ import MinusButton from '../molecules/minusButton';
 
 const MainPage = () => {
     return (
-        <SafeAreaView style={styles.mainContainer}>
+        <SafeAreaView style={styles.safeAreaView}>
             <View style={styles.settingsButton}>
                 <SettingsButton />
             </View>
+            <View style={styles.scaleButtons}>
+                <View style={styles.button}>
+                    <PlusButton />
+                </View>
+                <View style={styles.button}>
+                    <MinusButton />
+                </View>
+            </View>
             <View style={styles.floorsButton}>
                 <FloorsButton />
-            </View>
-            <View style={styles.plusButton}>
-                <PlusButton />
-            </View>
-            <View style={styles.minusButton}>
-                <MinusButton />
             </View>
             <NavigationBar />
         </SafeAreaView>
@@ -30,31 +32,28 @@ const MainPage = () => {
 };
 
 const styles = StyleSheet.create({
-    mainContainer: {
+    settingsButton: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
+    },
+    safeAreaView: {
         flex: 1,
         backgroundColor: '#E6E8E5',
         justifyContent: 'flex-end',
-        position: 'relative',
     },
-    settingsButton: {
-        position: 'absolute',
-        top: '5%',
-        left: '5%',
+    scaleButtons: {
+        flex: 4,
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        marginHorizontal: 20,
+    },
+    button: {
+        marginVertical: 10,
     },
     floorsButton: {
-        position: 'absolute',
-        bottom: '30%',
-        left: '5%',
-    },
-    plusButton: {
-        position: 'absolute',
-        top: '43%',
-        right: '5%',
-    },
-    minusButton: {
-        position: 'absolute',
-        bottom: '43%',
-        right: '5%',
+        margin: 20,
     },
 });
 

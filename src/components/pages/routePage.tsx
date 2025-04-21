@@ -5,29 +5,49 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import SettingsButton from '../molecules/settingsButton';
 import RouteBar from '../organisms/routeBar';
+import PlusButton from '../molecules/plusButton';
+import MinusButton from '../molecules/minusButton';
 
 const RoutePage = () => {
     return (
-        <SafeAreaView style={styles.mainContainer}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.settingsButton}>
                 <SettingsButton />
             </View>
-            <RouteBar />
+            <View style={styles.scaleButtons}>
+                <View style={styles.button}>
+                    <PlusButton />
+                </View>
+                <View style={styles.button}>
+                    <MinusButton />
+                </View>
+            </View>
+            <RouteBar departurePoint="Откуда" destinationPoint="Куда" />
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
-    mainContainer: {
+    settingsButton: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
+    },
+    container: {
         flex: 1,
         backgroundColor: '#E6E8E5',
         justifyContent: 'flex-end',
         position: 'relative',
     },
-    settingsButton: {
-        position: 'absolute',
-        top: '5%',
-        left: '5%',
+    scaleButtons: {
+        flex: 4,
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        marginHorizontal: 20,
+    },
+    button: {
+        marginVertical: 10,
     },
 });
 
