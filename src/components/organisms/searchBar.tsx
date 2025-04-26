@@ -6,6 +6,7 @@ import { globalStyles } from '../atoms/globalStyle';
 import CloseButton from '../molecules/closeButton';
 import CafeButton from '../molecules/cafeButton';
 import LibraryButton from '../molecules/libraryButton';
+import WcButton from '../molecules/wcButton';
 
 const SearchBar = () => {
     const [text, setText] = useState('');
@@ -33,6 +34,7 @@ const SearchBar = () => {
             </View>
             <Text style={[styles.text, globalStyles.text]}>Быстрый выбор:</Text>
             <View style={styles.searchRow}>
+                <WcButton />
                 <CafeButton />
                 <LibraryButton />
             </View>
