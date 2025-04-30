@@ -9,7 +9,7 @@ import CloseButton from '../molecules/closeButton';
 import CafeButton from '../molecules/cafeButton';
 import LibraryButton from '../molecules/libraryButton';
 import WcButton from '../molecules/wcButton';
-import SearchResults from '../molecules/searchResults';
+import RoomItem from '../molecules/roomItem';
 
 const SearchBar = () => {
     const [text, setText] = useState('');
@@ -43,13 +43,13 @@ const SearchBar = () => {
             <Text style={[styles.text, globalStyles.text]}>Результаты поиска:</Text>
             <ScrollView>
                 <View style={styles.resultList}>
-                    <SearchResults
-                        auditorium={150}
+                    <RoomItem
+                        r_id={(150).toString()}
                         floor={1}
-                        building={1}
+                        b_id={1}
                         bio="Кафедра микроорганизмов"
                     />
-                    <SearchResults auditorium={222} floor={2} building={2} bio="" />
+                    <RoomItem r_id={(222).toString()} floor={2} b_id={2} bio="" />
                     {/* <SearchResults auditorium={134} floor={1} building={12} />
                     <SearchResults auditorium={567} floor={5} building={8} /> */}
                 </View>
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
     resultList: {
+        padding: '2%',
         justifyContent: 'center',
         alignItems: 'center',
     },
