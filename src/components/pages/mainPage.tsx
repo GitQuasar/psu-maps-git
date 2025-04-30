@@ -4,12 +4,15 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import SettingsButton from '../molecules/settingsButton';
-import FloorsButton from '../molecules/floorsButton';
 import PlusButton from '../molecules/plusButton';
 import MinusButton from '../molecules/minusButton';
+import FloorSelection from '../molecules/floorSelection';
 import { useNavigation } from '@react-navigation/native';
 
 const MainPage = () => {
+    const handleFloorSelection = (floor: number) => {
+        console.log(`Selected floor: ${floor}`);
+    };
     const navigation = useNavigation();
 
     const goToSettings = () => {
@@ -30,7 +33,7 @@ const MainPage = () => {
                 </View>
             </View>
             <View style={styles.floorsButton}>
-                <FloorsButton />
+                <FloorSelection onFloorSelect={handleFloorSelection} />
             </View>
         </SafeAreaView>
     );

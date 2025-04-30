@@ -2,11 +2,16 @@ import React from 'react';
 
 import BaseButton from '../atoms/baseButton';
 
-const FloorsButton = () => {
+interface FloorsButtonProps {
+    onPress?: () => void;
+}
+
+const FloorsButton = (props: FloorsButtonProps) => {
     return (
         <BaseButton
             iconSrc={require('../images/floors_icon.png')}
             style={{ backgroundColor: '#6C0503' }}
+            onPress={props.onPress}
         />
     );
 };
