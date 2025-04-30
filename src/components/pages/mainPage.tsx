@@ -3,17 +3,23 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import NavigationBar from '../organisms/navigationBar';
 import SettingsButton from '../molecules/settingsButton';
 import FloorsButton from '../molecules/floorsButton';
 import PlusButton from '../molecules/plusButton';
 import MinusButton from '../molecules/minusButton';
+import { useNavigation } from '@react-navigation/native';
 
 const MainPage = () => {
+    const navigation = useNavigation();
+
+    const goToSettings = () => {
+        navigation.navigate('Settings');
+    };
+
     return (
         <SafeAreaView style={styles.safeAreaView}>
             <View style={styles.settingsButton}>
-                <SettingsButton />
+                <SettingsButton onPress={goToSettings} />
             </View>
             <View style={styles.scaleButtons}>
                 <View style={styles.button}>
@@ -26,7 +32,6 @@ const MainPage = () => {
             <View style={styles.floorsButton}>
                 <FloorsButton />
             </View>
-            <NavigationBar />
         </SafeAreaView>
     );
 };
@@ -53,7 +58,9 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     floorsButton: {
+        position: 'absolute',
         margin: 20,
+        marginBottom: '50%',
     },
 });
 

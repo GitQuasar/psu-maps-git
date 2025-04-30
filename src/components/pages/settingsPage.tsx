@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { globalStyles } from '../atoms/globalStyle';
 import CloseButton from '../molecules/closeButton';
+import { useNavigation } from '@react-navigation/native';
 
 const SettingsScreen = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -12,10 +13,16 @@ const SettingsScreen = () => {
         setIsDarkMode((previousState) => !previousState);
     };
 
+    const navigation = useNavigation();
+
+    const goBack = () => {
+        navigation.goBack();
+    };
+
     return (
         <SafeAreaView style={styles.safeAreaView}>
             <View style={styles.closeButton}>
-                <CloseButton />
+                <CloseButton onPress={goBack} />
             </View>
             <View style={styles.container}>
                 <View style={styles.header}>

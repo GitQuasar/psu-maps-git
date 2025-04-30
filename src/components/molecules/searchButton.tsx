@@ -5,9 +5,13 @@ import { globalStyles } from '../atoms/globalStyle';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const SearchButton = () => {
+interface SearchButtonProps {
+    onPress: () => void;
+}
+
+const SearchButton = (props: SearchButtonProps) => {
     return (
-        <TouchableOpacity style={styles.searchButton}>
+        <TouchableOpacity onPress={props.onPress} style={styles.searchButton}>
             <SafeAreaView>
                 <Image
                     style={styles.imageContainer}

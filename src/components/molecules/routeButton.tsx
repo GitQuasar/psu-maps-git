@@ -2,8 +2,12 @@ import React from 'react';
 
 import BaseButton from '../atoms/baseButton';
 
-const RouteButton = () => {
-    return <BaseButton iconSrc={require('../images/route_icon.png')} />;
+interface RouteButtonProps {
+    onPress: () => void;
+}
+
+const RouteButton = (props: RouteButtonProps) => {
+    return <BaseButton iconSrc={require('../images/route_icon.png')} onPress={props.onPress} />;
 };
 
 // const styles = StyleSheet.create({
