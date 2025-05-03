@@ -14,7 +14,7 @@ const NavigationBar = (props: NavigationBarProps) => {
     return (
         <SafeAreaView style={styles.navigationBar}>
             <SafeAreaView style={styles.buttonsContainer}>
-                <FavoritesButton />
+                <FavoritesButton onPress={() => props.onNavigation('favorite')} />
                 <SearchButton onPress={() => props.onNavigation('search')} />
                 <RouteButton onPress={() => props.onNavigation('route')} />
             </SafeAreaView>

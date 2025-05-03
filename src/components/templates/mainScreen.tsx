@@ -4,6 +4,7 @@ import MainPage from '../pages/mainPage';
 import NavigationBar from '../organisms/navigationBar';
 import RouteBar from '../organisms/routeBar';
 import SearchBar from '../organisms/searchBar';
+import FavoritesBar from '../organisms/favoritesBar';
 
 import { StyleSheet, View, Platform, BackHandler } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -36,6 +37,7 @@ const MainScreen = () => {
         <View style={styles.mainScreen}>
             <MainPage />
             <SafeAreaView style={styles.bar}>
+                {activeBar === 'favorite' && <FavoritesBar />}
                 {activeBar === 'main' && <NavigationBar onNavigation={handleNavigation} />}
                 {activeBar === 'search' && <SearchBar />}
                 {activeBar === 'route' && (

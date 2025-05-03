@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { globalStyles } from '../atoms/globalStyle';
 
-interface SearchResultProps {
+export interface SearchResultProps {
     b_id: number;
     r_id: string;
     floor: number;
@@ -39,6 +39,7 @@ const RoomItem = (props: SearchResultProps) => {
 
 const styles = StyleSheet.create({
     itemContainer: {
+        alignSelf: 'center',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     underText: {
-        width: 200,
+        width: 230,
         fontSize: 16,
         fontWeight: 'semibold',
         marginHorizontal: '5%',
