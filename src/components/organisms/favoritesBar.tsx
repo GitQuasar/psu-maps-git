@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    ScrollView,
-    FlatList,
-    Touchable,
-    TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -41,7 +33,7 @@ const FavoritesBar = () => {
             uid: 3,
             b_id: 2,
             r_id: '300',
-            bio: '',
+            bio: 'Комната жениха-тиктокера',
         },
         {
             uid: 4,
@@ -113,7 +105,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         boxShadow: '0px -4px 4px rgba(0, 0, 0, 0.25)',
-        // alignContent: 'center',
         alignItems: 'center',
     },
     barTitle: {
@@ -132,37 +123,20 @@ const styles = StyleSheet.create({
     },
     touchableOpacity: {
         flex: 1,
-        alignItems: 'center',
-        marginHorizontal: '5%',
-        // marginVertical: '2.5%',
-        justifyContent: 'center',
-        borderRadius: 25,
         height: 25,
-        // width: '50%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: '5%',
+        borderRadius: 25,
         backgroundColor: '#D9D9D9',
-        // marginHorizontal: '5%',
     },
     touchableRow: {
         flex: 1,
         flexDirection: 'row',
-        // justifyContent: 'flex-end',
-        // justifyContent: 'space-between',
-        // alignContent: 'stretch',
-        // marginVertical: '2.5%',
-        // width: '90%',
-        // height: 50,
-        // backgroundColor: '#D9D9D9',
-        // borderRadius: 25,
-        // boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     },
     itemList: {
-        alignContent: 'center',
         padding: '2%',
-        // margin: '2.5%',
-        // alignItems: 'center',
-        // justifyContent: 'flex-start',
-        // width: '100%',
-        // backgroundColor: '#000000',
+        width: '100%',
     },
 });
 

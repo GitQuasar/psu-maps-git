@@ -14,11 +14,9 @@ export interface SearchResultProps {
 const RoomItem = (props: SearchResultProps) => {
     return (
         <TouchableOpacity style={styles.itemContainer}>
-            {props.bio === '' ? (
+            <View style={styles.leftColumn}>
                 <Text style={[styles.text, globalStyles.text]}>Аудитория {props.r_id}</Text>
-            ) : (
-                <View>
-                    <Text style={[styles.text, globalStyles.text]}>Аудитория {props.r_id}</Text>
+                {props.bio != '' && (
                     <Text
                         style={[styles.underText, globalStyles.text]}
                         numberOfLines={1}
@@ -26,10 +24,9 @@ const RoomItem = (props: SearchResultProps) => {
                     >
                         {props.bio}
                     </Text>
-                </View>
-            )}
-
-            <View style={styles.columnText}>
+                )}
+            </View>
+            <View style={styles.rightColumn}>
                 <Text style={[styles.text, globalStyles.text]}>{props.b_id} корпус</Text>
                 <Text style={[styles.text, globalStyles.text]}>{props.floor} этаж</Text>
             </View>
@@ -39,32 +36,32 @@ const RoomItem = (props: SearchResultProps) => {
 
 const styles = StyleSheet.create({
     itemContainer: {
-        alignSelf: 'center',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
         marginVertical: '2%',
+        paddingHorizontal: '5%',
         width: '100%',
         height: 50,
         backgroundColor: '#D9D9D9',
         borderRadius: 25,
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     },
-    text: {
-        fontSize: 16,
-        fontWeight: 'semibold',
-        marginHorizontal: '5%',
+    leftColumn: {
+        flex: 1,
+        flexDirection: 'column',
     },
-    columnText: {
+    rightColumn: {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    underText: {
-        width: 230,
+    text: {
         fontSize: 16,
         fontWeight: 'semibold',
-        marginHorizontal: '5%',
+    },
+    underText: {
+        fontSize: 14,
+        fontWeight: 'semibold',
         color: '#1E2625',
     },
 });
