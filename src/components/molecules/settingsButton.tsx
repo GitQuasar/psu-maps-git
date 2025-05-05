@@ -3,7 +3,7 @@ import React from 'react';
 import BaseButton from '../atoms/baseButton';
 
 interface SettingsButtonProps {
-    onPress: () => void;
+    onPress?: () => void;
 }
 
 const SettingsButton = (props: SettingsButtonProps) => {
