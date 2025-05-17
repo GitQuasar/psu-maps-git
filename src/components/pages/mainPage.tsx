@@ -3,20 +3,25 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { RootStackParamList } from './../../App';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 import SettingsButton from '../molecules/settingsButton';
 import PlusButton from '../molecules/plusButton';
 import MinusButton from '../molecules/minusButton';
 import FloorSelection from '../molecules/floorSelection';
 import { useNavigation } from '@react-navigation/native';
 
+type MainScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
+
 const MainPage = () => {
     const handleFloorSelection = (floor: number) => {
         console.log(`Selected floor: ${floor}`);
     };
-    const navigation = useNavigation();
+    const navigation = useNavigation<MainScreenNavigationProp>();
 
     const goToSettings = () => {
-        navigation.navigate('Settings');
+        navigation.navigate('Settings', undefined);
     };
 
     return (

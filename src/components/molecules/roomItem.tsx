@@ -9,26 +9,51 @@ export interface SearchResultProps {
     r_id: string;
     floor: number;
     bio: string;
+    id: Number;
 }
 
-const RoomItem = (props: SearchResultProps) => {
+interface RoomItemProps {
+    b_id: number;
+    r_id: string;
+    floor: number;
+    bio: string;
+    id: Number;
+    onPress: (room: SearchResultProps) => void;
+}
+
+const RoomItem: React.FC<RoomItemProps> = ({ b_id, r_id, floor, bio, id, onPress }) => {
+    const handlePress = () => {
+        onPress({ id, b_id, r_id, floor, bio });
+    };
     return (
-        <TouchableOpacity style={styles.itemContainer}>
+        <TouchableOpacity style={styles.itemContainer} onPress={handlePress}>
             <View style={styles.leftColumn}>
-                <Text style={[styles.text, globalStyles.text]}>Аудитория {props.r_id}</Text>
-                {props.bio != '' && (
+                {r_id ? (
+                    <>
+                        <Text style={[styles.text, globalStyles.text]}>Аудитория {r_id}</Text>
+                        {bio !== '' && (
+                            <Text
+                                style={[styles.underText, globalStyles.text]}
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
+                            >
+                                {bio}
+                            </Text>
+                        )}
+                    </>
+                ) : (
                     <Text
-                        style={[styles.underText, globalStyles.text]}
+                        style={[styles.text, globalStyles.text]}
                         numberOfLines={1}
                         ellipsizeMode="tail"
                     >
-                        {props.bio}
+                        {bio}
                     </Text>
                 )}
             </View>
             <View style={styles.rightColumn}>
-                <Text style={[styles.text, globalStyles.text]}>{props.b_id} корпус</Text>
-                <Text style={[styles.text, globalStyles.text]}>{props.floor} этаж</Text>
+                <Text style={[styles.text, globalStyles.text]}>{b_id} корпус</Text>
+                <Text style={[styles.text, globalStyles.text]}>{floor} этаж</Text>
             </View>
         </TouchableOpacity>
     );

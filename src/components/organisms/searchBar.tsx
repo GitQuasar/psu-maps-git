@@ -15,7 +15,11 @@ import RoomsJson from '../../types/roomsJson';
 
 import rooms from '../../assets/rooms.json';
 
-const SearchBar = () => {
+interface SearchBarProps {
+    onRoomPress: (room: SearchResultProps) => void;
+}
+
+const SearchBar = (props: SearchBarProps) => {
     const [text, setText] = useState('');
     const [searchResults, setSearchResults] = useState<SearchResultProps[]>([]);
 
@@ -24,17 +28,97 @@ const SearchBar = () => {
 
         (rooms as RoomsJson).rooms.forEach((room) => {
             if (
-                room.r_id != null &&
-                typeof room.r_id === 'string' &&
-                room.r_id.toLowerCase().includes(searchText.toLowerCase())
+                (room.r_id != null &&
+                    typeof room.r_id === 'string' &&
+                    room.r_id.toLowerCase().includes(searchText.toLowerCase())) ||
+                (room.bio != null &&
+                    typeof room.bio === 'string' &&
+                    room.bio.toLowerCase().includes(searchText.toLowerCase()))
             ) {
-                const floor = parseInt(room.r_id.charAt(0), 10);
-
                 const searchResult: SearchResultProps = {
                     b_id: room.b_id,
                     r_id: room.r_id,
-                    floor: isNaN(floor) ? 0 : floor,
+                    floor: room.floor,
                     bio: room.bio,
+                    id: room.id,
+                };
+
+                results.push(searchResult);
+            }
+        });
+
+        setSearchResults(results);
+    }, []);
+
+    const searchCafe = useCallback(() => {
+        const results: SearchResultProps[] = [];
+        const сafe: Array<string> = ['Столовая', 'Буфет', 'Кафе', 'Кухня', 'Monkey Grinder'];
+
+        (rooms as RoomsJson).rooms.forEach((room) => {
+            if (room.bio != null && typeof room.bio === 'string') {
+                const bioLower = room.bio.toLowerCase();
+                if (
+                    сafe.some((safeWord) => {
+                        const words = bioLower.split(/\s+/);
+                        return words.includes(safeWord.toLowerCase());
+                    })
+                ) {
+                    const searchResult: SearchResultProps = {
+                        b_id: room.b_id,
+                        r_id: room.r_id,
+                        floor: room.floor,
+                        bio: room.bio,
+                        id: room.id,
+                    };
+                    results.push(searchResult);
+                }
+            }
+        });
+
+        setSearchResults(results);
+    }, []);
+
+    const searchLibrary = useCallback(() => {
+        const results: SearchResultProps[] = [];
+
+        const library: Array<string> = ['Библиотека', 'Читательный зал'];
+
+        (rooms as RoomsJson).rooms.forEach((room) => {
+            if (
+                room.bio != null &&
+                typeof room.bio === 'string' &&
+                library.some((safeWord) => room.bio.toLowerCase().includes(safeWord.toLowerCase()))
+            ) {
+                const searchResult: SearchResultProps = {
+                    b_id: room.b_id,
+                    r_id: room.r_id,
+                    floor: room.floor,
+                    bio: room.bio,
+                    id: room.id,
+                };
+
+                results.push(searchResult);
+            }
+        });
+
+        setSearchResults(results);
+    }, []);
+
+    const searchToilets = useCallback(() => {
+        const results: SearchResultProps[] = [];
+
+        (rooms as RoomsJson).rooms.forEach((room) => {
+            if (
+                room.bio != null &&
+                typeof room.bio === 'string' &&
+                room.bio.toLowerCase().includes('Туалет'.toLowerCase())
+            ) {
+                const searchResult: SearchResultProps = {
+                    b_id: room.b_id,
+                    r_id: room.r_id,
+                    floor: room.floor,
+                    bio: room.bio,
+                    id: room.id,
                 };
 
                 results.push(searchResult);
@@ -57,10 +141,12 @@ const SearchBar = () => {
         setSearchResults([]);
     };
 
-    const renderItem = ({ item }: { item: SearchResultProps }) => <RoomItem {...item} />;
+    const renderItem = ({ item }: { item: SearchResultProps }) => (
+        <RoomItem {...item} onPress={props.onRoomPress} />
+    );
 
     const keyExtractor = useCallback(
-        (item: SearchResultProps, index: number) => index.toString(),
+        (_item: SearchResultProps, index: number) => index.toString(),
         []
     );
 
@@ -78,9 +164,9 @@ const SearchBar = () => {
             </View>
             <Text style={[styles.text, globalStyles.text]}>Быстрый выбор:</Text>
             <View style={styles.searchRow}>
-                <WcButton />
-                <CafeButton />
-                <LibraryButton />
+                <WcButton onPress={searchToilets} />
+                <CafeButton onPress={searchCafe} />
+                <LibraryButton onPress={searchLibrary} />
             </View>
             <Text style={[styles.text, globalStyles.text]}>Результаты поиска:</Text>
             <FlatList
