@@ -15,7 +15,7 @@ const SearchButton = (props: SearchButtonProps) => {
             <SafeAreaView>
                 <Image
                     style={styles.imageContainer}
-                    source={require('../images/search_icon.png')}
+                    source={require('../../assets/png/search_icon.png')}
                 />
             </SafeAreaView>
             <SafeAreaView style={styles.textContainer}>

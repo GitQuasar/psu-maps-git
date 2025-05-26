@@ -7,7 +7,7 @@ interface WcButtonProps {
 }
 
 const WcButton = (props: WcButtonProps) => {
-    return <BaseButton iconSrc={require('../images/wc_icon.png')} onPress={props.onPress} />;
+    return <BaseButton iconSrc={require('../../assets/png/wc_icon.png')} onPress={props.onPress} />;
 };
 
 export default WcButton;

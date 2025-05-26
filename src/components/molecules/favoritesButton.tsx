@@ -7,7 +7,12 @@ interface FavoriteButtonProps {
 }
 
 const FavoritesButton = (props: FavoriteButtonProps) => {
-    return <BaseButton iconSrc={require('../images/favorites_icon.png')} onPress={props.onPress} />;
+    return (
+        <BaseButton
+            iconSrc={require('../../assets/png/favorites_icon.png')}
+            onPress={props.onPress}
+        />
+    );
 };
 
 export default FavoritesButton;

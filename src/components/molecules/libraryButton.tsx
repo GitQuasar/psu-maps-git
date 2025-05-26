@@ -7,7 +7,12 @@ interface LibraryButtonProps {
 }
 
 const LibraryButton = (props: LibraryButtonProps) => {
-    return <BaseButton iconSrc={require('../images/library_icon.png')} onPress={props.onPress} />;
+    return (
+        <BaseButton
+            iconSrc={require('../../assets/png/library_icon.png')}
+            onPress={props.onPress}
+        />
+    );
 };
 
 export default LibraryButton;

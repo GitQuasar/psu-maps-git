@@ -7,7 +7,9 @@ interface closeButtonProps {
 }
 
 const CloseButton = (props: closeButtonProps) => {
-    return <BaseButton iconSrc={require('../images/close_icon.png')} onPress={props.onPress} />;
+    return (
+        <BaseButton iconSrc={require('../../assets/png/close_icon.png')} onPress={props.onPress} />
+    );
 };
 
 export default CloseButton;

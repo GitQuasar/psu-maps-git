@@ -5,7 +5,7 @@ import BaseButton from '../atoms/baseButton';
 const PlusButton = () => {
     return (
         <BaseButton
-            iconSrc={require('../images/plus_icon.png')}
+            iconSrc={require('../../assets/png/plus_icon.png')}
             style={{ backgroundColor: '#6C0503' }}
         />
     );

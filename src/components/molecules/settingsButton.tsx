@@ -9,7 +9,7 @@ interface SettingsButtonProps {
 const SettingsButton = (props: SettingsButtonProps) => {
     return (
         <BaseButton
-            iconSrc={require('../images/settings_icon.png')}
+            iconSrc={require('../../assets/png/settings_icon.png')}
             style={{ backgroundColor: '#6C0503' }}
             onPress={props.onPress}
         />

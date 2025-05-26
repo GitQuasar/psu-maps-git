@@ -9,7 +9,7 @@ interface FloorsButtonProps {
 const FloorsButton = (props: FloorsButtonProps) => {
     return (
         <BaseButton
-            iconSrc={require('../images/floors_icon.png')}
+            iconSrc={require('../../assets/png/floors_icon.png')}
             style={{ backgroundColor: '#6C0503' }}
             onPress={props.onPress}
         />

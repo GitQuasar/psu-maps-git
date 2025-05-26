@@ -9,7 +9,7 @@ interface FavoriteButtonProps {
 const FavoritesButtonFilled = (props: FavoriteButtonProps) => {
     return (
         <BaseButton
-            iconSrc={require('../images/favorites_icon_filled.png')}
+            iconSrc={require('../../assets/png/favorites_icon_filled.png')}
             onPress={props.onPress}
         />
     );

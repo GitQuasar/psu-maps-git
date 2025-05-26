@@ -5,7 +5,7 @@ import BaseButton from '../atoms/baseButton';
 const MinusButton = () => {
     return (
         <BaseButton
-            iconSrc={require('../images/minus_icon.png')}
+            iconSrc={require('../../assets/png/minus_icon.png')}
             style={{ backgroundColor: '#6C0503' }}
         />
     );

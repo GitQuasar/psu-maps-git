@@ -7,7 +7,9 @@ interface CafeButtonProps {
 }
 
 const CafeButton = (props: CafeButtonProps) => {
-    return <BaseButton iconSrc={require('../images/cafe_icon.png')} onPress={props.onPress} />;
+    return (
+        <BaseButton iconSrc={require('../../assets/png/cafe_icon.png')} onPress={props.onPress} />
+    );
 };
 
 export default CafeButton;
