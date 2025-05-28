@@ -76,3 +76,9 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# userfiles
+
+/src/assets/floors/*
+/src/assets/*.ts
+/src/assets/*.json

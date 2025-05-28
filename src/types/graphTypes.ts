@@ -6,9 +6,11 @@
 
 export interface NodeData {
     id: string;
-    name: string | null;
+    bio: string;
     cx: number;
     cy: number;
+    b_id: number;
+    r_id: string;
     floor: number;
 }
 

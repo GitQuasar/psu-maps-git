@@ -1,3 +1,4 @@
+import { graphData } from '../assets/graphData';
 import { NodeId, GraphData } from '../types/graphTypes';
 
 // =====================
@@ -51,4 +52,11 @@ export class Graph {
     getAdgacencyList() {
         return this.adjacencyList;
     }
+
+    // Retrieves a node by its ID.
+    getNode(id: NodeId) {
+        return graphData.nodes.find((node) => node.id === id);
+    }
 }
+
+export const graph = new Graph(graphData);

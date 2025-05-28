@@ -1,5 +1,6 @@
-import { NodeId, NodeData, GraphData } from '../types/graphTypes';
-import { Graph } from './graph';
+import { graphData } from '../assets/graphData';
+import { NodeId, NodeData } from '../types/graphTypes';
+import { Graph, graph } from './graph';
 
 /** Extended node structure for A* algorithm. */
 
@@ -27,9 +28,9 @@ export class AStar {
     private graph: Graph; // Processed graph structure
     private nodeMap: Map<NodeId, NodeData>;
 
-    constructor(graph: GraphData) {
-        this.graph = new Graph(graph);
-        this.nodeMap = new Map(graph.nodes.map((node) => [node.id, node]));
+    constructor() {
+        this.graph = graph;
+        this.nodeMap = new Map(graphData.nodes.map((node) => [node.id, node]));
     }
 
     /**
@@ -169,5 +170,34 @@ export class AStar {
 
         // No path found
         return null;
+    }
+
+    splitByFloorChanges(nodeIds: string[]): NodeId[][] {
+        if (nodeIds.length === 0) return [];
+
+        const result: string[][] = [];
+        let currentGroup: string[] = [nodeIds[0]];
+        let currentFloor = graph.getNode(nodeIds[0])?.floor;
+
+        for (let i = 1; i < nodeIds.length; i++) {
+            const nodeId = nodeIds[i];
+            const node = graph.getNode(nodeId);
+
+            if (node && node.floor === currentFloor) {
+                // Same floor - add to current group
+                currentGroup.push(nodeId);
+            } else {
+                // Floor changed - start new group
+                result.push(currentGroup);
+                currentGroup = [nodeId];
+                currentFloor = node?.floor;
+            }
+        }
+        // Add the last group
+        if (currentGroup.length > 0) {
+            result.push(currentGroup);
+        }
+
+        return result;
     }
 }
