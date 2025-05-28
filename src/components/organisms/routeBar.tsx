@@ -1,44 +1,78 @@
 import React from 'react';
-
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import SwitchEndpointsButton from '../molecules/switchEndpointsButton';
 import CloseButton from '../molecules/closeButton';
-
 import { globalStyles } from '../atoms/globalStyle';
 
 interface RouteBarProps {
-    departurePoint: string;
-    destinationPoint: string;
+    onBack: () => void;
+    onSelectDeparture: (room: { b_id: number; r_id: string; id: number }) => void;
+    onSelectDestination: (room: { b_id: number; r_id: string; id: number }) => void;
+    departureRoom?: { b_id: number; r_id: string; id: number } | null;
+    destinationRoom?: { b_id: number; r_id: string; id: number } | null;
+    onSwitchEndpoints: () => void;
+    onClearDeparture: () => void; // Добавляем функцию для очистки "Откуда"
+    onClearDestination: () => void; // Добавляем функцию для очистки "Куда"
+    onBuildRoute: (startId: string, endId: string) => void;
 }
 
-const RouteBar = (props: RouteBarProps) => {
+const RouteBar: React.FC<RouteBarProps> = ({
+    onBack,
+    onSelectDeparture,
+    onSelectDestination,
+    departureRoom,
+    destinationRoom,
+    onSwitchEndpoints,
+    onClearDeparture, // Добавляем функцию для очистки "Откуда"
+    onClearDestination,
+    onBuildRoute,
+}) => {
+    const handleBuildRoutePress = () => {
+        if (departureRoom && destinationRoom) {
+            const startId = `v${departureRoom.id}`; // Используем id
+            const endId = `v${destinationRoom.id}`; // Используем id
+            onBuildRoute(startId, endId);
+        } else {
+            console.warn('Не выбраны начальная и конечная аудитории');
+            // Можно добавить визуальное уведомление для пользователя
+        }
+    };
     return (
         <SafeAreaView style={styles.bar}>
             <Text style={[styles.barTitle, globalStyles.text]}>Маршрут</Text>
             <View style={styles.barRows}>
                 <View style={styles.row}>
-                    <TouchableOpacity style={styles.touchable}>
+                    <TouchableOpacity
+                        style={styles.touchable}
+                        onPress={() => onSelectDeparture({ b_id: 0, r_id: '', id: 0 })} // Переход в SearchBar для выбора "откуда"
+                    >
                         <Text style={[globalStyles.text, styles.touchableText]}>
-                            {props.departurePoint}
+                            {departureRoom
+                                ? `Ауд. ${departureRoom.r_id} (${departureRoom.b_id} корпус)`
+                                : 'Откуда'}
                         </Text>
                     </TouchableOpacity>
-                    <CloseButton />
+                    <CloseButton onPress={onClearDeparture} />
                 </View>
                 <View style={styles.row}>
-                    <SwitchEndpointsButton />
+                    <SwitchEndpointsButton onPress={onSwitchEndpoints} />
                 </View>
                 <View style={styles.row}>
-                    <TouchableOpacity style={styles.touchable}>
+                    <TouchableOpacity
+                        style={styles.touchable}
+                        onPress={() => onSelectDestination({ b_id: 0, r_id: '', id: 0 })} // Переход в SearchBar для выбора "куда"
+                    >
                         <Text style={[globalStyles.text, styles.touchableText]}>
-                            {props.destinationPoint}
+                            {destinationRoom
+                                ? `Ауд. ${destinationRoom.r_id} (${destinationRoom.b_id} корпус)`
+                                : 'Куда'}
                         </Text>
                     </TouchableOpacity>
-                    <CloseButton />
+                    <CloseButton onPress={onClearDestination} />
                 </View>
                 <View style={styles.row}>
-                    <TouchableOpacity style={styles.touchable}>
+                    <TouchableOpacity style={styles.touchable} onPress={handleBuildRoutePress}>
                         <Text style={[globalStyles.text, styles.touchableText]}>
                             Построить маршрут
                         </Text>

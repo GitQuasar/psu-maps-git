@@ -12,6 +12,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import InformationBar from '../organisms/informationBar';
 import { SearchResultProps } from '../molecules/roomItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RootStackParamList } from '../../App';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 type BarType = 'main' | 'favorite' | 'search' | 'route' | 'information';
 interface RoomsData {
@@ -21,8 +23,26 @@ interface RoomsData {
 const MainScreen = () => {
     const [activeBar, setActiveBar] = useState<BarType>('main');
     const [selectedRoom, setSelectedRoom] = useState<SearchResultProps>();
+
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+    const handleBuildRoute = (startId: string, endId: string) => {
+        navigation.navigate('Route', { startId: startId, endId: endId });
+    };
+
     const [_roomsData, setRoomsData] = useState<RoomsData>({ rooms: [] });
     const [isDataLoaded, setIsDataLoaded] = useState(false);
+    const [isRouteMode, setIsRouteMode] = useState(false);
+    const [departureRoom, setDepartureRoom] = useState<{
+        b_id: number;
+        r_id: string;
+        id: number;
+    } | null>(null);
+    const [destinationRoom, setDestinationRoom] = useState<{
+        b_id: number;
+        r_id: string;
+        id: number;
+    } | null>(null);
 
     useEffect(() => {
         const loadData = async () => {
@@ -53,7 +73,40 @@ const MainScreen = () => {
         if (room) {
             setSelectedRoom(room);
         }
+        setIsRouteMode(false);
     };
+
+    const handleSelectRoomForRoute = (room: SearchResultProps) => {
+        if (isSelectingDeparture) {
+            setDepartureRoom({ b_id: room.b_id, r_id: room.r_id, id: room.id });
+            setIsSelectingDeparture(false);
+            setActiveBar('route');
+        } else {
+            setDestinationRoom({ b_id: room.b_id, r_id: room.r_id, id: room.id });
+            setActiveBar('route');
+        }
+    };
+
+    const handleSwitchEndpoints = () => {
+        // Меняем местами departureRoom и destinationRoom
+        setDepartureRoom(destinationRoom);
+        setDestinationRoom(departureRoom);
+    };
+
+    const handleClearDeparture = () => {
+        setDepartureRoom(null); // Очищаем "Откуда"
+    };
+
+    const handleClearDestination = () => {
+        setDestinationRoom(null); // Очищаем "Куда"
+    };
+
+    const handleAddToRoute = (room: { b_id: number; r_id: string; id: number }) => {
+        setDestinationRoom({ b_id: room.b_id, r_id: room.r_id, id: room.id });
+        setActiveBar('route');
+    };
+
+    const [isSelectingDeparture, setIsSelectingDeparture] = useState(false);
 
     const handleBackPress = useCallback(() => {
         if (activeBar !== 'main') {
@@ -79,13 +132,39 @@ const MainScreen = () => {
                 )}
                 {activeBar === 'main' && <NavigationBar onNavigation={handleNavigation} />}
                 {activeBar === 'search' && (
-                    <SearchBar onRoomPress={(room) => handleNavigation('information', room)} />
+                    <SearchBar
+                        onRoomPress={(room) => handleNavigation('information', room)}
+                        isRouteMode={isRouteMode}
+                        onSelectRoomForRoute={handleSelectRoomForRoute}
+                    />
                 )}
                 {activeBar === 'route' && (
-                    <RouteBar departurePoint={'Откуда'} destinationPoint={'Куда'} />
+                    <RouteBar
+                        onBack={() => handleNavigation('main')}
+                        onSelectDeparture={() => {
+                            setIsRouteMode(true);
+                            setIsSelectingDeparture(true);
+                            setActiveBar('search');
+                        }}
+                        onSelectDestination={() => {
+                            setIsRouteMode(true);
+                            setIsSelectingDeparture(false);
+                            setActiveBar('search');
+                        }}
+                        departureRoom={departureRoom}
+                        destinationRoom={destinationRoom}
+                        onSwitchEndpoints={handleSwitchEndpoints}
+                        onClearDeparture={handleClearDeparture}
+                        onClearDestination={handleClearDestination}
+                        onBuildRoute={handleBuildRoute}
+                    />
                 )}
                 {activeBar === 'information' && selectedRoom && isDataLoaded && (
-                    <InformationBar roomData={selectedRoom} setRoomsData={setRoomsData} />
+                    <InformationBar
+                        roomData={selectedRoom}
+                        setRoomsData={setRoomsData}
+                        onAddToRoute={handleAddToRoute}
+                    />
                 )}
             </SafeAreaView>
         </View>

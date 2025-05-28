@@ -9,7 +9,7 @@ export interface SearchResultProps {
     r_id: string;
     floor: number;
     bio: string;
-    id: Number;
+    id: number;
 }
 
 interface RoomItemProps {
@@ -17,13 +17,26 @@ interface RoomItemProps {
     r_id: string;
     floor: number;
     bio: string;
-    id: Number;
-    onPress: (room: SearchResultProps) => void;
+    id: number;
+    onPressInfo?: () => void; // Переход к информации об аудитории (опционально)
+    onPressRoute?: () => void; // Выбор аудитории для маршрута (опционально)
 }
 
-const RoomItem: React.FC<RoomItemProps> = ({ b_id, r_id, floor, bio, id, onPress }) => {
+const RoomItem: React.FC<RoomItemProps> = ({
+    b_id,
+    r_id,
+    floor,
+    bio,
+    id,
+    onPressInfo,
+    onPressRoute,
+}) => {
     const handlePress = () => {
-        onPress({ id, b_id, r_id, floor, bio });
+        if (onPressRoute) {
+            onPressRoute(); // Вызываем обработчик для выбора аудитории для маршрута, если он есть
+        } else if (onPressInfo) {
+            onPressInfo(); // Вызываем обработчик для перехода к информации об аудитории, если он есть
+        }
     };
     return (
         <TouchableOpacity style={styles.itemContainer} onPress={handlePress}>

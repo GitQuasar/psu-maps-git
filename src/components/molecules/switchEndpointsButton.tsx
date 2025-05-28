@@ -2,8 +2,17 @@ import React from 'react';
 
 import BaseButton from '../atoms/baseButton';
 
-const SwitchEndpointsButton = () => {
-    return <BaseButton iconSrc={require('../../assets/png/switch_endpoints_icon.png')} />;
+interface SwitchEndpointsButtonProps {
+    onPress: () => void;
+}
+
+const SwitchEndpointsButton = (props: SwitchEndpointsButtonProps) => {
+    return (
+        <BaseButton
+            iconSrc={require('../../assets/png/switch_endpoints_icon.png')}
+            onPress={props.onPress}
+        />
+    );
 };
 
 export default SwitchEndpointsButton;

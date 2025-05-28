@@ -17,11 +17,23 @@ import rooms from '../../assets/rooms.json';
 
 interface SearchBarProps {
     onRoomPress: (room: SearchResultProps) => void;
+    isRouteMode?: boolean;
+    onSelectRoomForRoute?: (room: SearchResultProps) => void; // Новый обработчик для выбора аудитории в режиме маршрута
 }
 
 const SearchBar = (props: SearchBarProps) => {
     const [text, setText] = useState('');
     const [searchResults, setSearchResults] = useState<SearchResultProps[]>([]);
+
+    const handleRoomPress = (room: SearchResultProps) => {
+        if (props.isRouteMode && props.onSelectRoomForRoute) {
+            // Вызываем функцию, переданную из RouteBar, с информацией о выбранной аудитории
+            props.onSelectRoomForRoute(room);
+        } else {
+            // Вызываем обычный обработчик нажатия
+            props.onRoomPress(room);
+        }
+    };
 
     const searchRooms = useCallback((searchText: string) => {
         const results: SearchResultProps[] = [];
@@ -142,7 +154,11 @@ const SearchBar = (props: SearchBarProps) => {
     };
 
     const renderItem = ({ item }: { item: SearchResultProps }) => (
-        <RoomItem {...item} onPress={props.onRoomPress} />
+        <RoomItem
+            {...item}
+            onPressInfo={() => props.onRoomPress(item)}
+            onPressRoute={props.isRouteMode ? () => handleRoomPress(item) : undefined}
+        />
     );
 
     const keyExtractor = useCallback(

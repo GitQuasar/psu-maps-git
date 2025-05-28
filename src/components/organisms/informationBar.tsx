@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 interface InformationBarProps {
     roomData: SearchResultProps;
     setRoomsData: (data: { rooms: any[] }) => void;
+    onAddToRoute: (room: { b_id: number; r_id: string; id: number }) => void;
 }
 
 const InformationBar = (props: InformationBarProps) => {
@@ -111,7 +112,16 @@ const InformationBar = (props: InformationBarProps) => {
                     </View>
                 </View>
                 <View style={styles.touchableRow}>
-                    <TouchableOpacity style={styles.touchableOpacity}>
+                    <TouchableOpacity
+                        style={styles.touchableOpacity}
+                        onPress={() =>
+                            props.onAddToRoute({
+                                b_id: props.roomData.b_id,
+                                r_id: props.roomData.r_id,
+                                id: props.roomData.id,
+                            })
+                        }
+                    >
                         <Text style={[styles.routeText, globalStyles.text]}>Построить маршрут</Text>
                     </TouchableOpacity>
                     <View>
