@@ -69,7 +69,10 @@ export class AStar {
         const to = this.nodeMap.get(toId);
 
         // Early exit for invalid or same inputs
-        if (!from || !to || from === to) {
+        if (!from || !to) {
+            return null;
+        }
+        if (from === to) {
             return [];
         }
 
