@@ -19,6 +19,9 @@ const imageWidth = 5000;
 const imageHeight = 2000 / (3192 / 5532);
 
 const MainPage = () => {
+    const handleFloorSelection = (floor: number) => {
+        console.log(`Selected floor: ${floor}`);
+    };
     const navigation = useNavigation<MainScreenNavigationProp>();
 
     const goToSettings = () => {
@@ -52,7 +55,7 @@ const MainPage = () => {
                 </View>
             </View>
             <View style={styles.floorsButton}>
-                <FloorSelection />
+                <FloorSelection onFloorSelect={handleFloorSelection} />
             </View>
         </SafeAreaView>
     );
